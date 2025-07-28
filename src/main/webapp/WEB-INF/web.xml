@@ -1,0 +1,17 @@
+<web-app>
+
+	<servlet>
+      <servlet-name>LoginServlet</servlet-name>
+      <servlet-class>LoginServlet</servlet-class>
+    </servlet>
+	<servlet-mapping>
+      <servlet-name>LoginServlet</servlet-name>
+      <url-pattern>/login</url-pattern>
+    </servlet-mapping>
+    
+    <error-page>
+        <error-code>403</error-code>
+        <location>/WEB-INF/jsp/403.jsp</location>
+    </error-page>
+
+</web-app>

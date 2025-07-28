@@ -11,15 +11,16 @@ public class TestJDBC {
 
 		String username = "root";
 		String password = "aabbhhii";
-
+		Connection c = null;
+		Statement st = null;
 		String query = "INSERT into student(id, name) values (1011, 'Abhishek')";
 
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 
-			Connection c = DriverManager.getConnection(url, username, password);
+			c = DriverManager.getConnection(url, username, password);
 
-			Statement st = c.createStatement();
+			st = c.createStatement();
 
 			int count = st.executeUpdate(query);
 
