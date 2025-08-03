@@ -2,35 +2,38 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 public class LoginServlet extends HttpServlet {
-
 	@Override
-	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		response.sendRedirect("login.html");
-	}
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
-	@Override
-	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-		String username = request.getParameter("username");
-		String password = request.getParameter("password");
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
 
-		if ("admin".equals(username) && "admin".equals(password)) {
-			HttpSession session = request.getSession();
-			session.setAttribute(username, username);
+		String user = request.getParameter("username");
+		String pass = request.getParameter("password");
+
+		if ("admin".equals(user) && "admin123".equals(pass)) {
+			HttpSession session = request.getSession(true);
+			session.setAttribute("username", user);
 			session.setMaxInactiveInterval(300);
 
-			request.getRequestDispatcher("Welcome.html").include(request, response);
+			Cookie cookie = new Cookie("JSESSIONID", session.getId());
+			cookie.setHttpOnly(true);
+			cookie.setMaxAge(300);
+			response.addCookie(cookie);
 
+			String encodedURL = response.encodeRedirectURL("DashboardServlet");
+			response.sendRedirect(encodedURL);
 		} else {
-			out.println("<h1>Login Failed</h1>");
+			out.println("<h3>Login Failed. Try again.</h3>");
+			request.getRequestDispatcher("login.html").include(request, response);
 		}
 	}
-
 }

@@ -16,6 +16,24 @@
           <target>1.8</target>
         </configuration>
       </plugin>
+       <plugin>
+		    <groupId>com.coderplus.maven.plugins</groupId>
+		    <artifactId>copy-rename-maven-plugin</artifactId>
+		    <version>1.0</version>
+		    <executions>
+		        <execution>
+		            <id>copy-file</id>
+		            <phase>package</phase>
+		            <goals>
+		                <goal>copy</goal>
+		            </goals>
+		            <configuration>
+		                <sourceFile>target/AdvanceJavaProgramming.war</sourceFile>
+		                <destinationFile>C:/Users/abhishekd/OneDrive - Adobe/Abhishek/Adobe_Oct_21/Amity/Advanced Java/Jul 25 - Dec - 25/apache-tomcat-9.0.107-windows-x64/apache-tomcat-9.0.107/webapps/AdvanceJavaProgramming.war</destinationFile>
+		            </configuration>
+		        </execution>
+		    </executions>
+		</plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-war-plugin</artifactId>
